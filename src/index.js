@@ -25,6 +25,7 @@ export default ({
       return parentPath.isProgram();
     });
 
+    /*
     if (!filenameMap[filename].importedHelperIndentifier) {
       filenameMap[filename].importedHelperIndentifier = programPath.scope.generateUidIdentifier('getClassName');
       programPath.unshiftContainer(
@@ -39,6 +40,7 @@ export default ({
         )
       );
     }
+    */
 
     const firstNonImportDeclarationNode = programPath.get('body').find((node) => {
       return !t.isImportDeclaration(node);

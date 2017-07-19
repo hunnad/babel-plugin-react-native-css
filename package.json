@@ -1,9 +1,25 @@
 {
+  "name": "babel-plugin-react-native-css",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Transform common css file to react native style.",
   "author": {
-    "email": "gajus@gajus.com",
-    "name": "Gajus Kuizinas",
-    "url": "http://gajus.com"
+    "email": "hunnad@gmail.com",
+    "name": "hunnad",
+    "url": "https://github.com/hunnad"
   },
+  "main": "dist/index.js",
+  "scripts": {
+    "build-helper": "mkdir -p ./dist/browser && NODE_ENV=production babel ./src/getClassName.js --out-file ./dist/browser/getClassName.js --source-maps --no-babelrc --plugins transform-es2015-modules-commonjs,transform-flow-strip-types --presets es2015",
+    "build": "rm -fr ./dist &&cross-env NODE_ENV=production babel ./src --out-dir ./dist --source-maps --copy-files && npm run build-helper",
+    "lint": "eslint ./src && flow",
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register"
+  },
+  "keywords": [
+    "babel-plugin",
+    "css-modules",
+    "react native css"
+  ],
   "dependencies": {
     "ajv": "^4.11.4",
     "ajv-keywords": "^2.1.0",
@@ -23,7 +39,6 @@
     "postcss-modules-values": "^1.2.2",
     "to-camel-case": "^1.0.0"
   },
-  "description": "Transforms styleName to className using compile time CSS module resolution.",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-helper-plugin-test-runner": "^6.18.0",
@@ -46,25 +61,14 @@
     "postcss-scss": "^0.4.0",
     "semantic-release": "^6.3.5"
   },
-  "engines": {
-    "node": ">4.0.0"
-  },
-  "keywords": [
-    "babel-plugin",
-    "css-modules"
-  ],
-  "license": "BSD-3-Clause",
-  "main": "dist/index.js",
-  "name": "babel-plugin-react-native-css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gajus/babel-plugin-react-css-modules"
+    "url": "https://github.com/hunnad/babel-plugin-react-native-css"
   },
-  "scripts": {
-    "build-helper": "mkdir -p ./dist/browser && NODE_ENV=production babel ./src/getClassName.js --out-file ./dist/browser/getClassName.js --source-maps --no-babelrc --plugins transform-es2015-modules-commonjs,transform-flow-strip-types --presets es2015",
-    "build": "rm -fr ./dist && NODE_ENV=production babel ./src --out-dir ./dist --source-maps --copy-files && npm run build-helper",
-    "lint": "eslint ./src && flow",
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register"
+  "bugs": {
+    "url": "  https://github.com/hunnad/babel-plugin-react-native-css/issues"
   },
-  "version": "1.0.0"
+  "engines": {
+    "node": ">4.0.0"
+  }
 }
