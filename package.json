@@ -13,6 +13,7 @@
     "build-helper": "mkdir -p ./dist/browser && NODE_ENV=production babel ./src/getClassName.js --out-file ./dist/browser/getClassName.js --source-maps --no-babelrc --plugins transform-es2015-modules-commonjs,transform-flow-strip-types --presets es2015",
     "build": "rm -fr ./dist &&cross-env NODE_ENV=production babel ./src --out-dir ./dist --source-maps --copy-files && npm run build-helper",
     "lint": "eslint ./src && flow",
+    "precommit": "npm run test",
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register"
   },
   "keywords": [
