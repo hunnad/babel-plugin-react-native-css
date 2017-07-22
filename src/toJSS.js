@@ -8,7 +8,7 @@ export default function toJSS(css) {
 	const stylesheetString = Array.isArray(css) ? css[0] : css;
 	const directions = ['top', 'right', 'bottom', 'left'];
 	const changeArr = ['margin', 'padding', 'border-width', 'border-radius'];
-	const numberize = ['width', 'height', 'font-size', 'line-height'].concat(directions);
+	const numberize = ['max-width', 'max-height', 'min-width', 'min-height', 'width', 'height', 'font-size', 'line-height'].concat(directions);
 	// special properties and shorthands that need to be broken down separately
 	const specialProperties = {};
 	['border', 'border-top', 'border-right', 'border-bottom', 'border-left'].forEach((name) => {
@@ -127,12 +127,11 @@ export default function toJSS(css) {
 					});
 					continue;
 				}
-
+        const valueReplaced = value.replace(/px|\s*/g, '');
 				if (utils.arrayContains(property, numberize)) {
-					const valueReplaced = value.replace(/px|\s*/g, '');
 					styles[toCamelCase(property)] = parseFloat(valueReplaced);
 				} else if (utils.arrayContains(property, changeArr)) {
-					const values = value.replace(/px/g, '').split(/[\s,]+/);
+					const values = valueReplaced.split(/[\s,]+/);
 
 					values.forEach((v, index, arr) => {
 						arr[index] = parseInt(v);
@@ -172,11 +171,11 @@ export default function toJSS(css) {
 						}
 					}
 				} else {
-					if (!isNaN(declaration.value) && property !== 'font-weight') {
-						declaration.value = parseFloat(declaration.value);
+					if (!isNaN(valueReplaced) && property !== 'font-weight') {
+						declaration.value = parseFloat(valueReplaced);
 					}
 
-					styles[toCamelCase(property)] = declaration.value;
+					styles[toCamelCase(property)] = valueReplaced;
 				}
 			}
 		}

@@ -1,9 +1,6 @@
 // @flow
 
-import {
-  dirname,
-  resolve
-} from 'path';
+import {dirname, resolve} from 'path';
 import babelPluginJsxSyntax from 'babel-plugin-syntax-jsx';
 import BabelTypes from 'babel-types';
 import createObjectExpression from './createObjectExpression';
@@ -63,7 +60,7 @@ export default ({
     // console.log('setting up', filename, util.inspect(filenameMap,{depth: 5}))
   };
 
-  const addWebpackHotModuleAccept = (path) => {
+  const addHotModuleAccept = (path) => {
     const test = t.memberExpression(t.identifier('module'), t.identifier('hot'));
     const consequent = t.blockStatement([
       t.expressionStatement(
@@ -73,7 +70,7 @@ export default ({
             t.identifier('accept')
           ),
           [
-            t.stringLiteral(path.node.source.value),
+            t.stringLiteral(path.node.source.value)/*,
             t.functionExpression(null, [], t.blockStatement([
               t.expressionStatement(
                 t.callExpression(
@@ -82,6 +79,7 @@ export default ({
                 )
               )
             ]))
+            */
           ]
         )
       )
@@ -160,6 +158,11 @@ export default ({
 
         setupStyleInFile(path, filename, style);
 
+        /*
+        if (stats.opts.hotModuleReloading) {
+          addHotModuleAccept(path);
+        }
+        */
         if (stats.opts.removeImport) {
           path.remove();
         }
@@ -187,11 +190,13 @@ export default ({
       },
 
       Program (path: *, stats: *): void {
+        /**
         if (!validateOption(stats.opts)) {
           // eslint-disable-next-line no-console
           console.error(validateOption.errors);
           throw new Error('Invalid configuration');
         }
+         **/
       }
     }
   };

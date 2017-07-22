@@ -1,5 +1,3 @@
-import foo from './bar.css';
-import './style2.css';
 import React from 'react';
 import { Text } from 'react-native';
 
